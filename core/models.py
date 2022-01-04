@@ -19,7 +19,8 @@ class Category(models.Model):
 class Transaction(models.Model):
     amount = models.DecimalField(max_digits=15, decimal_places=2)
     currency = models.ForeignKey(Currency, on_delete=models.PROTECT, related_name='transactions')
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='transactions')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True,
+                                 related_name='transactions')
     date = models.DateTimeField()
     description = models.TextField(blank=True)
 
