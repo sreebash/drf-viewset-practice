@@ -25,6 +25,7 @@ class WriteTransactionSerializer(serializers.ModelSerializer):
 
 class ReadTransactionSerializer(serializers.ModelSerializer):
     currency = CurrencySerializer()
+    category = CategorySerializer()
 
     class Meta:
         model = Transaction

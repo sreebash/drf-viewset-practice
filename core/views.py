@@ -17,7 +17,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
-    queryset = Transaction.objects.all()
+    queryset = Transaction.objects.select_related('currency', 'category')
 
     # serializer_class = WriteTransactionSerializer
 
