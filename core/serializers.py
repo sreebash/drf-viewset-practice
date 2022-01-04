@@ -15,10 +15,18 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class TransactionSerializer(serializers.ModelSerializer):
+class WriteTransactionSerializer(serializers.ModelSerializer):
     currency = serializers.SlugRelatedField(slug_field='code', queryset=Currency.objects.all())
-    print('==========Currency==========', currency)
+
+    class Meta:
+        model = Transaction
+        fields = ('amount', 'currency', 'date', 'description', 'category')
+
+
+class ReadTransactionSerializer(serializers.ModelSerializer):
+    currency = CurrencySerializer()
 
     class Meta:
         model = Transaction
         fields = ('id', 'amount', 'currency', 'date', 'description', 'category')
+        read_only_fields = fields

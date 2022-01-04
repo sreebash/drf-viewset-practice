@@ -2,7 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets
 
 from core.models import Category, Transaction, Currency
-from core.serializers import CategorySerializer, TransactionSerializer, CurrencySerializer
+from core.serializers import CategorySerializer, WriteTransactionSerializer, CurrencySerializer, \
+    ReadTransactionSerializer
 
 
 class CurrencyViewSet(viewsets.ModelViewSet):
@@ -17,4 +18,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
-    serializer_class = TransactionSerializer
+
+    # serializer_class = WriteTransactionSerializer
+
+    def get_serializer_class(self):
+        if self.action in ('list', 'retrieve'):
+            return ReadTransactionSerializer
+
+        return WriteTransactionSerializer
