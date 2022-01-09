@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from core.models import Currency, Category, Transaction
@@ -15,6 +16,13 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class ReadUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name')
+        read_only_fields = fields
+
+
 class WriteTransactionSerializer(serializers.ModelSerializer):
     currency = serializers.SlugRelatedField(slug_field='code', queryset=Currency.objects.all())
 
@@ -24,6 +32,7 @@ class WriteTransactionSerializer(serializers.ModelSerializer):
 
 
 class ReadTransactionSerializer(serializers.ModelSerializer):
+    user = ReadUserSerializer()
     currency = CurrencySerializer()
     category = CategorySerializer()
 
