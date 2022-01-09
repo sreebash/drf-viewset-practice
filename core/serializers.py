@@ -20,7 +20,7 @@ class WriteTransactionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transaction
-        fields = ('amount', 'currency', 'date', 'description', 'category')
+        fields = ('amount', 'currency', 'description', 'category')
 
 
 class ReadTransactionSerializer(serializers.ModelSerializer):
@@ -29,5 +29,5 @@ class ReadTransactionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transaction
-        fields = ('id', 'amount', 'currency', 'date', 'description', 'category')
+        fields = ('id', 'amount', 'currency', 'description', 'category', 'user')
         read_only_fields = fields
